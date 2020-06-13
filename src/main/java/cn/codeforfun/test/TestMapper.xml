@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.codeforfun.test.TestMapper">
+    <select id="selectAll" resultMap="cn.codeforfun.generator.mapper.ApplicationMapper.BaseResultMap">
+        select application_id,
+               application_name,
+               application_code,
+               project_id
+        from system_application
+    </select>
+</mapper>
