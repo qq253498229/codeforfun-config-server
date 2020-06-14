@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.codeforfun.generator.mapper.AppMapper">
-  <resultMap id="BaseResultMap" type="cn.codeforfun.generator.model.App">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="app_id" jdbcType="BIGINT" property="appId" />
-    <result column="app_name" jdbcType="VARCHAR" property="appName" />
-    <result column="app_code" jdbcType="VARCHAR" property="appCode" />
-    <result column="project_id" jdbcType="BIGINT" property="projectId" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="cn.codeforfun.generator.model.App">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="app_id" jdbcType="BIGINT" property="appId"/>
+        <result column="app_name" jdbcType="VARCHAR" property="appName"/>
+        <result column="app_code" jdbcType="VARCHAR" property="appCode"/>
+        <result column="project_id" jdbcType="BIGINT" property="projectId"/>
+    </resultMap>
+    <resultMap id="appMap" type="cn.codeforfun.modules.app.vo.AppVO" extends="BaseResultMap">
+        <association property="configList" resultMap="cn.codeforfun.generator.mapper.ConfigMapper.BaseResultMap"/>
+    </resultMap>
+    <select id="findAppList" resultMap="appMap">
+        select sa.app_id,
+               app_name,
+               app_code,
+               project_id,
+               sc.config_id,
+               config_name,
+               env_id
+        from system_app sa
+                 left join relationship_app_config rac on sa.app_id = rac.app_id
+                 left join system_config sc on rac.config_id = sc.config_id
+    </select>
 </mapper>
