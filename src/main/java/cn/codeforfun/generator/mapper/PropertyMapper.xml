@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.codeforfun.generator.mapper.PropertyMapper">
-  <resultMap id="BaseResultMap" type="cn.codeforfun.generator.model.Property">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="property_id" jdbcType="BIGINT" property="propertyId" />
-    <result column="property_key" jdbcType="VARCHAR" property="propertyKey" />
-    <result column="property_value" jdbcType="VARCHAR" property="propertyValue" />
-    <result column="property_type" jdbcType="VARCHAR" property="propertyType" />
-    <result column="config_id" jdbcType="BIGINT" property="configId" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="cn.codeforfun.generator.model.Property">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="property_id" jdbcType="BIGINT" property="propertyId"/>
+        <result column="property_key" jdbcType="VARCHAR" property="propertyKey"/>
+        <result column="property_value" jdbcType="VARCHAR" property="propertyValue"/>
+        <result column="property_type" jdbcType="VARCHAR" property="propertyType"/>
+        <result column="config_id" jdbcType="BIGINT" property="configId"/>
+    </resultMap>
+    <select id="find" resultMap="BaseResultMap">
+        select sp.property_id,
+               property_key,
+               property_value,
+               property_type
+        from system_property sp
+                 left join system_config sc on sp.config_id = sc.config_id
+                 left join relationship_app_config rac on sc.config_id = rac.config_id
+                 left join system_app sa on rac.app_id = sa.app_id
+                 left join system_project s on sa.project_id = s.project_id
+                 left join system_env se on sc.env_id = se.env_id
+        where s.project_code = #{projectName}
+          and se.env_code = #{profile}
+          and sa.app_code = #{appName}
+    </select>
 </mapper>

@@ -15,8 +15,8 @@
     </resultMap>
     <insert id="insertAppConfigRelationshipByAppId">
         insert into relationship_app_config (app_id, config_id) values
-        <foreach collection="configIdList" separator="," item="configId" open="(" close=")">
-            #{appId},#{configId}
+        <foreach collection="configIdList" separator="," item="configId">
+            (#{appId},#{configId})
         </foreach>
     </insert>
     <delete id="deleteAppConfigRelationshipByAppId">
