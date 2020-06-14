@@ -15,6 +15,9 @@ import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import static cn.codeforfun.constant.ValidationConstant.ERROR_MESSAGE_ENV_ID_NULL;
 
 @RestController
 @RequestMapping("/conf")
@@ -25,9 +28,9 @@ public class ConfigController {
     private PropertyMapper propertyMapper;
 
     @GetMapping
-    public PageInfo<Config> list(Pageable pageable) {
+    public PageInfo<Config> list(Pageable pageable, @NotNull(message = ERROR_MESSAGE_ENV_ID_NULL) Long envId) {
         PageHelper.startPage(PageUtils.from(pageable));
-        return new PageInfo<>(configMapper.selectAll());
+        return new PageInfo<>(configMapper.select(new Config(null, null, envId)));
     }
 
     @PostMapping
