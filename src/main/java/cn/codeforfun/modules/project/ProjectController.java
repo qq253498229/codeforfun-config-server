@@ -1,6 +1,10 @@
 package cn.codeforfun.modules.project;
 
+import cn.codeforfun.generator.mapper.AppMapper;
+import cn.codeforfun.generator.mapper.EnvMapper;
 import cn.codeforfun.generator.mapper.ProjectMapper;
+import cn.codeforfun.generator.model.App;
+import cn.codeforfun.generator.model.Env;
 import cn.codeforfun.generator.model.Project;
 import cn.codeforfun.modules.project.vo.ProjectVO;
 import cn.codeforfun.utils.PageUtils;
@@ -17,6 +21,10 @@ import javax.validation.Valid;
 public class ProjectController {
     @Resource
     private ProjectMapper projectMapper;
+    @Resource
+    private EnvMapper envMapper;
+    @Resource
+    private AppMapper appMapper;
 
     @GetMapping
     public PageInfo<Project> list(Pageable pageable) {
@@ -38,4 +46,13 @@ public class ProjectController {
         return projectMapper.selectByPrimaryKey(id);
     }
 
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        projectMapper.deleteAppConfigRelationshipByProjectId(id);
+        projectMapper.deletePropertyByProjectId(id);
+        projectMapper.deleteConfigByProjectId(id);
+        envMapper.delete(new Env(null, null, null, id));
+        appMapper.delete(new App(null, null, null, id));
+        projectMapper.deleteByPrimaryKey(id);
+    }
 }
