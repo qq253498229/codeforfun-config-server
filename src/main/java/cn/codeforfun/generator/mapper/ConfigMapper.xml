@@ -13,6 +13,24 @@
         <association property="env" resultMap="cn.codeforfun.generator.mapper.EnvMapper.envMap"/>
         <collection property="propertyList" resultMap="cn.codeforfun.generator.mapper.PropertyMapper.BaseResultMap"/>
     </resultMap>
+    <delete id="deleteAppConfigRelationshipByEnvId">
+        delete
+        from relationship_app_config
+        where config_id in (
+            select config_id
+            from system_config
+            where env_id = #{0}
+        )
+    </delete>
+    <delete id="deletePropertyByEnvId">
+        delete
+        from system_property
+        where config_id in (
+            select config_id
+            from system_config
+            where env_id = #{0}
+        )
+    </delete>
     <select id="findOneFetchProperty" resultMap="configMap">
         select sc.config_id,
                config_name,

@@ -6,4 +6,8 @@ import tk.mybatis.mapper.common.Mapper;
 
 public interface ConfigMapper extends Mapper<Config> {
     ConfigVO findOneFetchProperty(Long id);
+
+    void deleteAppConfigRelationshipByEnvId(Long id);
+
+    void deletePropertyByEnvId(Long id);
 }
