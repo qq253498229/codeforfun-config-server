@@ -1,41 +1,54 @@
 DROP DATABASE application_configuration;
 CREATE DATABASE application_configuration;
 USE application_configuration;
-CREATE TABLE `relationship_application_configuration`
+
+CREATE TABLE `relationship_app_config`
 (
-    `application_id`   bigint NOT NULL,
-    `configuration_id` bigint NOT NULL
+    `app_id`    bigint NOT NULL,
+    `config_id` bigint NOT NULL,
+    PRIMARY KEY (`config_id`),
+    PRIMARY KEY (`app_id`),
+    KEY `relationship_app_config_app_id_fk` (`app_id`),
+    CONSTRAINT `relationship_app_config_app_id_fk` FOREIGN KEY (`app_id`) REFERENCES `system_app` (`app_id`),
+    KEY `relationship_app_config_config_id_fk` (`config_id`),
+    CONSTRAINT `relationship_app_config_config_id_fk` FOREIGN KEY (`config_id`) REFERENCES `system_config` (`config_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci COMMENT = '应用配置中间表';
-CREATE TABLE `system_application`
+CREATE TABLE `system_app`
 (
-    `application_id`   bigint                                  NOT NULL auto_increment,
-    `application_name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '应用名',
-    `application_code` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '应用编码',
-    `project_id`       bigint                                  NOT NULL COMMENT '项目id(外键)',
-    PRIMARY KEY (`application_id`),
-    CONSTRAINT `system_application_code_uindex` UNIQUE (`application_code`)
+    `app_id`     bigint                                  NOT NULL auto_increment,
+    `app_name`   varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '应用名',
+    `app_code`   varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '应用编码',
+    `project_id` bigint                                  NOT NULL COMMENT '项目id(外键)',
+    PRIMARY KEY (`app_id`),
+    CONSTRAINT `system_app_app_code_uindex` UNIQUE (`app_code`),
+    KEY `system_app_project_id_fk` (`project_id`),
+    CONSTRAINT `system_app_project_id_fk` FOREIGN KEY (`project_id`) REFERENCES `system_project` (`project_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci COMMENT = '应用表';
-CREATE TABLE `system_configuration`
+CREATE TABLE `system_config`
 (
-    `configuration_id`   bigint                                  NOT NULL auto_increment,
-    `configuration_name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '配置名',
-    `environment_id`     bigint                                  NOT NULL COMMENT '环境id(外键)',
-    PRIMARY KEY (`configuration_id`)
+    `config_id`   bigint                                  NOT NULL auto_increment,
+    `config_name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '配置名',
+    `env_id`      bigint                                  NOT NULL COMMENT '环境id(外键)',
+    PRIMARY KEY (`config_id`),
+    KEY `system_config_env_id_fk` (`env_id`),
+    CONSTRAINT `system_config_env_id_fk` FOREIGN KEY (`env_id`) REFERENCES `system_env` (`env_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci COMMENT = '配置表';
-CREATE TABLE `system_environment`
+CREATE TABLE `system_env`
 (
-    `environment_id`   bigint                                  NOT NULL auto_increment,
-    `environment_name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '环境名',
-    `environment_code` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '环境编号',
-    `project_id`       bigint                                  NOT NULL COMMENT '项目id(外键)',
-    PRIMARY KEY (`environment_id`),
-    CONSTRAINT `system_environment_code_uindex` UNIQUE (`environment_code`)
+    `env_id`     bigint                                  NOT NULL auto_increment,
+    `env_name`   varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '环境名',
+    `env_code`   varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '环境编号',
+    `project_id` bigint                                  NOT NULL COMMENT '项目id(外键)',
+    PRIMARY KEY (`env_id`),
+    CONSTRAINT `system_env_env_code_uindex` UNIQUE (`env_code`),
+    KEY `system_env_project_id_fk` (`project_id`),
+    CONSTRAINT `system_env_project_id_fk` FOREIGN KEY (`project_id`) REFERENCES `system_project` (`project_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci COMMENT = '环境表';
@@ -45,18 +58,20 @@ CREATE TABLE `system_project`
     `project_name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '项目名',
     `project_code` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '项目编号',
     PRIMARY KEY (`project_id`),
-    CONSTRAINT `system_project_code_uindex` UNIQUE (`project_code`)
+    CONSTRAINT `system_project_project_code_uindex` UNIQUE (`project_code`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci COMMENT = '项目表';
 CREATE TABLE `system_property`
 (
-    `property_id`      bigint                                  NOT NULL auto_increment,
-    `property_key`     varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '属性名',
-    `property_value`   varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '属性值',
-    `property_type`    varchar(50) COLLATE utf8mb4_unicode_ci  DEFAULT NULL COMMENT 'STRING,INTEGER,BOOLEAN',
-    `configuration_id` bigint                                  NOT NULL COMMENT '配置id(外键)',
-    PRIMARY KEY (`property_id`)
+    `property_id`    bigint                                  NOT NULL auto_increment,
+    `property_key`   varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '属性名',
+    `property_value` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '属性值',
+    `property_type`  varchar(50) COLLATE utf8mb4_unicode_ci  DEFAULT NULL COMMENT 'STRING,INTEGER,BOOLEAN',
+    `config_id`      bigint                                  NOT NULL COMMENT '配置id(外键)',
+    PRIMARY KEY (`property_id`),
+    KEY `system_property_config_id_fk` (`config_id`),
+    CONSTRAINT `system_property_config_id_fk` FOREIGN KEY (`config_id`) REFERENCES `system_config` (`config_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci COMMENT = '属性表';
