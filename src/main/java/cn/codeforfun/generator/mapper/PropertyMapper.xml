@@ -9,6 +9,6 @@
     <result column="property_key" jdbcType="VARCHAR" property="propertyKey" />
     <result column="property_value" jdbcType="VARCHAR" property="propertyValue" />
     <result column="property_type" jdbcType="VARCHAR" property="propertyType" />
-    <result column="configuration_id" jdbcType="BIGINT" property="configurationId" />
+    <result column="config_id" jdbcType="BIGINT" property="configId" />
   </resultMap>
 </mapper>

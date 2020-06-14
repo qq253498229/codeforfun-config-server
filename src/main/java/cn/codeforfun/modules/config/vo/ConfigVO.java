@@ -1,12 +1,12 @@
 package cn.codeforfun.modules.config.vo;
 
-import cn.codeforfun.generator.model.Configuration;
-import cn.codeforfun.generator.model.Environment;
+import cn.codeforfun.generator.model.Config;
+import cn.codeforfun.generator.model.Env;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class ConfigVO {
-    private Long configurationId;
-    private Configuration config;
-    private Environment env;
+public class ConfigVO extends Config {
+    private Env env;
 }

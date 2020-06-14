@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 表名：system_configuration
+ * 表名：system_config
  * 表注释：配置表
 */
 @Builder
@@ -16,21 +16,21 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "system_configuration")
-public class Configuration {
+@Table(name = "system_config")
+public class Config {
     @Id
-    @Column(name = "configuration_id")
-    private Long configurationId;
+    @Column(name = "config_id")
+    private Long configId;
 
     /**
      * 配置名
      */
-    @Column(name = "configuration_name")
-    private String configurationName;
+    @Column(name = "config_name")
+    private String configName;
 
     /**
      * 环境id(外键)
      */
-    @Column(name = "environment_id")
-    private Long environmentId;
+    @Column(name = "env_id")
+    private Long envId;
 }

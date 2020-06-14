@@ -43,6 +43,6 @@ public class Property {
     /**
      * 配置id(外键)
      */
-    @Column(name = "configuration_id")
-    private Long configurationId;
+    @Column(name = "config_id")
+    private Long configId;
 }
