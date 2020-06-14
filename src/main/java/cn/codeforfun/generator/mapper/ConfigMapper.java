@@ -10,4 +10,6 @@ public interface ConfigMapper extends Mapper<Config> {
     void deleteAppConfigRelationshipByEnvId(Long id);
 
     void deletePropertyByEnvId(Long id);
+
+    void deleteAppConfigRelationshipByConfigId(Long id);
 }

@@ -31,6 +31,11 @@
             where env_id = #{0}
         )
     </delete>
+    <delete id="deleteAppConfigRelationshipByConfigId">
+        delete
+        from relationship_app_config
+        where config_id = #{0}
+    </delete>
     <select id="findOneFetchProperty" resultMap="configMap">
         select sc.config_id,
                config_name,

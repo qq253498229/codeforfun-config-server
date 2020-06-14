@@ -53,4 +53,11 @@ public class ConfigController {
     public ConfigVO getOne(@PathVariable Long id) {
         return configMapper.findOneFetchProperty(id);
     }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        configMapper.deleteAppConfigRelationshipByConfigId(id);
+        propertyMapper.delete(new Property(null, null, null, null, id));
+        configMapper.deleteByPrimaryKey(id);
+    }
 }
