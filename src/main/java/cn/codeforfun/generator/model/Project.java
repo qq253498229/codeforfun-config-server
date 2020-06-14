@@ -1,11 +1,11 @@
 package cn.codeforfun.generator.model;
 
-import javax.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * 表名：system_project
@@ -20,6 +20,7 @@ import lombok.Setter;
 public class Project {
     @Id
     @Column(name = "project_id")
+    @GeneratedValue(generator = "JDBC")
     private Long projectId;
 
     /**

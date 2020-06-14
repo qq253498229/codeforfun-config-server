@@ -20,6 +20,7 @@ import lombok.Setter;
 public class Property {
     @Id
     @Column(name = "property_id")
+    @GeneratedValue(generator = "JDBC")
     private Long propertyId;
 
     /**

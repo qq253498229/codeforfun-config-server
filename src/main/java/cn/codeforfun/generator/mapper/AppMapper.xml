@@ -11,18 +11,41 @@
         <result column="project_id" jdbcType="BIGINT" property="projectId"/>
     </resultMap>
     <resultMap id="appMap" type="cn.codeforfun.modules.app.vo.AppVO" extends="BaseResultMap">
-        <association property="configList" resultMap="cn.codeforfun.generator.mapper.ConfigMapper.BaseResultMap"/>
+        <collection property="configList" resultMap="cn.codeforfun.generator.mapper.ConfigMapper.configMap"/>
     </resultMap>
+    <insert id="insertAppConfigRelationshipByAppId">
+        insert into relationship_app_config (app_id, config_id) values
+        <foreach collection="configIdList" separator="," item="configId" open="(" close=")">
+            #{appId},#{configId}
+        </foreach>
+    </insert>
+    <delete id="deleteAppConfigRelationshipByAppId">
+        delete
+        from relationship_app_config
+        where app_id = #{0}
+    </delete>
     <select id="findAppList" resultMap="appMap">
         select sa.app_id,
-               app_name,
-               app_code,
-               project_id,
-               sc.config_id,
-               config_name,
-               env_id
+        sa.app_name,
+        sa.app_code,
+        sc.config_id,
+        config_name,
+        se.env_id,
+        env_name,
+        env_code
         from system_app sa
-                 left join relationship_app_config rac on sa.app_id = rac.app_id
-                 left join system_config sc on rac.config_id = sc.config_id
+        left join relationship_app_config rac on sa.app_id = rac.app_id
+        left join system_config sc on rac.config_id = sc.config_id
+        left join system_env se on sc.env_id = se.env_id
+        <where>
+            <choose>
+                <when test="projectId">
+                    and sa.project_id = #{projectId}
+                </when>
+                <when test="appId">
+                    and sa.app_id = #{appId}
+                </when>
+            </choose>
+        </where>
     </select>
 </mapper>

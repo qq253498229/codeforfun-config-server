@@ -7,21 +7,36 @@ import cn.codeforfun.utils.PageUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.data.domain.Pageable;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import java.util.List;
+
+import static cn.codeforfun.constant.ValidationConstant.ERROR_MESSAGE_PROJECT_ID_NULL;
 
 @RestController
 @RequestMapping("/env")
+@Validated
 public class EnvController {
     @Resource
     private EnvMapper envMapper;
 
     @GetMapping
-    public PageInfo<Env> list(Pageable pageable) {
+    public PageInfo<Env> list(Pageable pageable, @NotNull(message = ERROR_MESSAGE_PROJECT_ID_NULL) Long projectId) {
         PageHelper.startPage(PageUtils.from(pageable));
-        return new PageInfo<>(envMapper.selectAll());
+        Example example = new Example(Env.class);
+        example.createCriteria().andEqualTo("projectId", projectId);
+        return new PageInfo<>(envMapper.selectByExample(example));
+    }
+
+    @GetMapping("/findAll")
+    public List<EnvVO> findAll(@NotNull(message = ERROR_MESSAGE_PROJECT_ID_NULL) Long projectId) {
+        return envMapper.findEnvList(projectId);
     }
 
     @PostMapping
@@ -34,7 +49,7 @@ public class EnvController {
     }
 
     @GetMapping("/{id}")
-    public Env getOne(@PathVariable Integer id) {
+    public Env getOne(@PathVariable Long id) {
         return envMapper.selectByPrimaryKey(id);
     }
 }

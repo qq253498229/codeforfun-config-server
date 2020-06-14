@@ -34,13 +34,8 @@ public class ProjectController {
     }
 
     @GetMapping("/{id}")
-    public Project getOne(@PathVariable Integer id) {
+    public Project getOne(@PathVariable Long id) {
         return projectMapper.selectByPrimaryKey(id);
     }
-
-//    @DeleteMapping("/{id}")
-//    public void delete(@PathVariable Integer id) {
-//        projectRepository.deleteById(id);
-//    }
 
 }

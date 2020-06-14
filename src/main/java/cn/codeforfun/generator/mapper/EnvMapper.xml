@@ -13,7 +13,7 @@
     <resultMap id="envMap" type="cn.codeforfun.modules.env.vo.EnvVO" extends="BaseResultMap">
         <collection property="configList" resultMap="cn.codeforfun.generator.mapper.ConfigMapper.BaseResultMap"/>
     </resultMap>
-    <select id="findEnvList" resultType="cn.codeforfun.generator.model.Env">
+    <select id="findEnvList" resultMap="envMap">
         select se.env_id,
                env_name,
                env_code,

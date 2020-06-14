@@ -20,6 +20,7 @@ import lombok.Setter;
 public class Env {
     @Id
     @Column(name = "env_id")
+    @GeneratedValue(generator = "JDBC")
     private Long envId;
 
     /**

@@ -34,9 +34,20 @@
         <javaClientGenerator targetPackage="cn.codeforfun.generator.mapper" targetProject="src/main/java"
                              type="XMLMAPPER"/>
 
-        <table tableName="system_%">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-            <domainObjectRenamingRule searchString="^System" replaceString=""/>
+        <table tableName="system_app" domainObjectName="App">
+            <generatedKey column="app_id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="system_config" domainObjectName="Config">
+            <generatedKey column="config_id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="system_env" domainObjectName="Env">
+            <generatedKey column="env_id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="system_project" domainObjectName="Project">
+            <generatedKey column="project_id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="system_property" domainObjectName="Property">
+            <generatedKey column="property_id" sqlStatement="JDBC"/>
         </table>
     </context>
 </generatorConfiguration>
