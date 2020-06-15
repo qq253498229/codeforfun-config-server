@@ -13,17 +13,20 @@
     </resultMap>
     <select id="find" resultMap="BaseResultMap">
         select sp.property_id,
-               property_key,
-               property_value,
-               property_type
+        property_key,
+        property_value,
+        property_type
         from system_property sp
-                 left join system_config sc on sp.config_id = sc.config_id
-                 left join relationship_app_config rac on sc.config_id = rac.config_id
-                 left join system_app sa on rac.app_id = sa.app_id
-                 left join system_project s on sa.project_id = s.project_id
-                 left join system_env se on sc.env_id = se.env_id
+        left join system_config sc on sp.config_id = sc.config_id
+        left join relationship_app_config rac on sc.config_id = rac.config_id
+        left join system_app sa on rac.app_id = sa.app_id
+        left join system_project s on sa.project_id = s.project_id
+        left join system_env se on sc.env_id = se.env_id
         where s.project_code = #{projectName}
-          and se.env_code = #{profile}
-          and sa.app_code = #{appName}
+        and se.env_code in
+        <foreach collection="profiles" separator="," open="(" close=")" item="profile">
+            #{profile}
+        </foreach>
+        and sa.app_code = #{appName}
     </select>
 </mapper>

@@ -1,9 +1,0 @@
-spring:
-  cloud:
-    consul:
-      discovery:
-        acl-token: B595BC8E-DE44-4510-82D7-ECF5657F4D4D
-      host: localhost
-      port: 8500
-  application:
-    name: codeforfun-config-server

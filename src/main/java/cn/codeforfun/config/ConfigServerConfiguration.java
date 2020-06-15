@@ -29,8 +29,9 @@ public class ConfigServerConfiguration implements EnvironmentRepository {
         String[] strings = application.split("_");
         String projectName = strings[0];
         String appName = strings[1];
+        String[] profiles = profile.split(",");
 
-        List<Property> propertyList = propertyMapper.find(projectName, appName, profile);
+        List<Property> propertyList = propertyMapper.find(projectName, appName, profiles);
 
         Map<String, Object> source = new HashMap<>(10);
         environment.add(new PropertySource(application, source));

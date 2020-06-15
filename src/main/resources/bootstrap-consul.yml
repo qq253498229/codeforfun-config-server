@@ -1,0 +1,21 @@
+spring:
+  autoconfigure:
+    exclude:
+      #      忽略eureka自动配置
+      - org.springframework.cloud.netflix.eureka.config.EurekaClientConfigServerAutoConfiguration
+      - org.springframework.cloud.netflix.eureka.config.DiscoveryClientOptionalArgsConfiguration
+      - org.springframework.cloud.netflix.eureka.EurekaClientAutoConfiguration
+      - org.springframework.cloud.netflix.ribbon.eureka.RibbonEurekaAutoConfiguration
+      - org.springframework.cloud.netflix.eureka.EurekaDiscoveryClientConfiguration
+      - org.springframework.cloud.netflix.eureka.reactive.EurekaReactiveDiscoveryClientConfiguration
+      - org.springframework.cloud.netflix.eureka.loadbalancer.LoadBalancerEurekaAutoConfiguration
+
+  cloud:
+    consul:
+      discovery:
+        instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}
+        prefer-ip-address: true
+        health-check-path: ${server.servlet.context-path:}/actuator/health
+        acl-token: B595BC8E-DE44-4510-82D7-ECF5657F4D4D
+      host: localhost
+      port: 8500
