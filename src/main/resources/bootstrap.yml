@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    consul:
+      discovery:
+        instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}
+        prefer-ip-address: true
+        health-check-path: ${server.servlet.context-path:}/actuator/health

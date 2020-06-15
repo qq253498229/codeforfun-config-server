@@ -16,10 +16,14 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static cn.codeforfun.constant.BusinessConstant.CONTEXT_PATH;
 import static cn.codeforfun.constant.ValidationConstant.ERROR_MESSAGE_PROJECT_ID_NULL;
 
+/**
+ * @author wangbin
+ */
 @RestController
-@RequestMapping("/app")
+@RequestMapping(CONTEXT_PATH + "/app")
 public class AppController {
     @Resource
     private AppMapper appMapper;

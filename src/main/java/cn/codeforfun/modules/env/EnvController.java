@@ -20,10 +20,14 @@ import javax.validation.constraints.NotNull;
 
 import java.util.List;
 
+import static cn.codeforfun.constant.BusinessConstant.CONTEXT_PATH;
 import static cn.codeforfun.constant.ValidationConstant.ERROR_MESSAGE_PROJECT_ID_NULL;
 
+/**
+ * @author wangbin
+ */
 @RestController
-@RequestMapping("/env")
+@RequestMapping(CONTEXT_PATH + "/env")
 @Validated
 public class EnvController {
     @Resource

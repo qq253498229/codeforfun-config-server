@@ -16,8 +16,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
+import static cn.codeforfun.constant.BusinessConstant.CONTEXT_PATH;
+
+
+/**
+ * @author wangbin
+ */
 @RestController
-@RequestMapping("/project")
+@RequestMapping(CONTEXT_PATH + "/project")
 public class ProjectController {
     @Resource
     private ProjectMapper projectMapper;
