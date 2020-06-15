@@ -11,7 +11,7 @@ import java.util.List;
 
 public class MigrateTest {
     @Test
-    @Disabled
+//    @Disabled
     void test() throws SQLException {
         DatabaseInfo from = new DatabaseInfo("localhost", 3306, "root", "root", "application_configuration");
         DatabaseInfo to = new DatabaseInfo("localhost", 3306, "root", "root", "test");
