@@ -1,5 +1,5 @@
 spring:
   application:
-    name: codeforfun-config-server
+    name: ${APPLICATION_NAME:config-server}
   profiles:
-    active: default,url
+    active: default,${DISCOVERY_TYPE:url}

@@ -121,10 +121,14 @@
     </dependencyManagement>
 
     <build>
+        <finalName>app</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>cn.codeforfun.Application</mainClass>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
@@ -176,4 +180,36 @@
         </resources>
     </build>
 
+    <profiles>
+        <profile>
+            <id>local-maven-repository</id>
+            <repositories>
+                <repository>
+                    <id>local-maven-repository</id>
+                    <url>http://host.docker.internal:8081/repository/maven-public/</url>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>local-maven-repository</id>
+                    <url>http://host.docker.internal:8081/repository/maven-public/</url>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+        <profile>
+            <id>alibaba-maven-repository</id>
+            <repositories>
+                <repository>
+                    <id>alibaba-maven-repository</id>
+                    <url>http://maven.aliyun.com/nexus/content/repositories/central/</url>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>alibaba-maven-repository</id>
+                    <url>http://maven.aliyun.com/nexus/content/repositories/central/</url>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
 </project>
