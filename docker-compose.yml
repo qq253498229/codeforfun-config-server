@@ -1,0 +1,26 @@
+version: "3"
+services:
+  config-server:
+    image: registry.cn-beijing.aliyuncs.com/codeforfun/config-server:latest
+    build: .
+    container_name: config
+    environment:
+      SERVER_PORT: 8888
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: application_configuration
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: root
+      DISCOVERY_TYPE: url
+#      DISCOVERY_TYPE: eureka
+#      EUREKA_SERVICE_URL: http://admin:admin@eureka:8761/eureka/
+#      DISCOVERY_TYPE: consul
+#      CONSUL_TOKEN: B595BC8E-DE44-4510-82D7-ECF5657F4D4D
+#      CONSUL_HOST: consul
+#      CONSUL_PORT: 8500
+    ports:
+      - "8888:8888"
+networks:
+  default:
+    external:
+      name: local
