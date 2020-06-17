@@ -1,9 +1,9 @@
 FROM maven:3-jdk-8-alpine
 WORKDIR /app
 COPY pom.xml ./pom.xml
-RUN mvn package -Dmaven.test.skip=true -Plocal-maven-repository
+RUN mvn package -Dmaven.test.skip=true -Palibaba-maven-repository
 COPY src ./src
-RUN mvn package -Dmaven.test.skip=true -Plocal-maven-repository
+RUN mvn package -Dmaven.test.skip=true -Palibaba-maven-repository
 
 FROM openjdk:8-jre-alpine
 WORKDIR /app
