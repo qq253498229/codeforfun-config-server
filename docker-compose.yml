@@ -1,7 +1,7 @@
 version: "3"
 services:
   config-server:
-    image: registry.cn-beijing.aliyuncs.com/codeforfun/config-server:1.0.0
+    image: registry.cn-beijing.aliyuncs.com/codeforfun/config-server:1.0.1
     build: .
     container_name: config
     environment:
