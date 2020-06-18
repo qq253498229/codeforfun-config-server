@@ -12,12 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
 import java.util.List;
 
 import static cn.codeforfun.constant.BusinessConstant.CONTEXT_PATH;
@@ -38,9 +36,7 @@ public class EnvController {
     @GetMapping
     public PageInfo<Env> list(Pageable pageable, @NotNull(message = ERROR_MESSAGE_PROJECT_ID_NULL) Long projectId) {
         PageHelper.startPage(PageUtils.from(pageable));
-        Example example = new Example(Env.class);
-        example.createCriteria().andEqualTo("projectId", projectId);
-        return new PageInfo<>(envMapper.selectByExample(example));
+        return new PageInfo<>(envMapper.select(new Env(null, null, null, projectId)));
     }
 
     @GetMapping("/findAll")
@@ -50,6 +46,7 @@ public class EnvController {
 
     @PostMapping
     public void save(@RequestBody @Valid EnvVO envVO) {
+        envVO.setEnvProjectId(envVO.getProjectId());
         if (envVO.getEnvId() == null) {
             envMapper.insertSelective(envVO);
         } else {

@@ -34,7 +34,6 @@ public class EnvVO extends Env {
     /**
      * 项目id(外键)
      */
-    @Column(name = "project_id")
     @NotNull(message = ERROR_MESSAGE_PROJECT_ID_NULL)
     private Long projectId;
 

@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.codeforfun.generator.mapper.ConfigMapper">
-    <resultMap id="BaseResultMap" type="cn.codeforfun.generator.model.Config">
-        <!--
-          WARNING - @mbg.generated
-        -->
-        <id column="config_id" jdbcType="BIGINT" property="configId"/>
-        <result column="config_name" jdbcType="VARCHAR" property="configName"/>
-        <result column="env_id" jdbcType="BIGINT" property="envId"/>
-    </resultMap>
-    <resultMap id="configMap" type="cn.codeforfun.modules.config.vo.ConfigVO" extends="BaseResultMap">
-        <association property="env" resultMap="cn.codeforfun.generator.mapper.EnvMapper.envMap"/>
-        <collection property="propertyList" resultMap="cn.codeforfun.generator.mapper.PropertyMapper.BaseResultMap"/>
+  <resultMap id="BaseResultMap" type="cn.codeforfun.generator.model.Config">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="config_id" jdbcType="BIGINT" property="configId" />
+    <result column="config_name" jdbcType="VARCHAR" property="configName" />
+    <result column="config_env_id" jdbcType="BIGINT" property="configEnvId" />
+  </resultMap>
+    <resultMap extends="BaseResultMap" id="configMap" type="cn.codeforfun.modules.config.vo.ConfigVO">
+        <association property="env" resultMap="cn.codeforfun.generator.mapper.EnvMapper.envMap" />
+        <collection property="propertyList" resultMap="cn.codeforfun.generator.mapper.PropertyMapper.BaseResultMap" />
     </resultMap>
     <delete id="deleteAppConfigRelationshipByEnvId">
         delete
         from relationship_app_config
-        where config_id in (
-            select config_id
+        where relationship_config_id in (
+            select relationship_config_id
             from system_config
-            where env_id = #{0}
+            where config_env_id = #{0}
         )
     </delete>
     <delete id="deletePropertyByEnvId">
         delete
         from system_property
-        where config_id in (
-            select config_id
+        where property_config_id in (
+            select property_config_id
             from system_config
-            where env_id = #{0}
+            where config_env_id = #{0}
         )
     </delete>
     <delete id="deleteAppConfigRelationshipByConfigId">
         delete
         from relationship_app_config
-        where config_id = #{0}
+        where relationship_config_id = #{0}
     </delete>
     <select id="findOneFetchProperty" resultMap="configMap">
         select sc.config_id,
                config_name,
-               env_id,
+               config_env_id,
                sp.property_id,
                sp.property_key,
                sp.property_value,
                sp.property_type
         from system_config sc
-                 left join system_property sp on sc.config_id = sp.config_id
-        where sp.config_id = #{0}
+                 left join system_property sp on sc.config_id = sp.property_config_id
+        where sp.property_config_id = #{0}
     </select>
 </mapper>

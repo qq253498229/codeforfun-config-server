@@ -37,6 +37,7 @@ public class AppController {
 
     @PostMapping
     public void save(@RequestBody @Valid AppVO appVO) {
+        appVO.setAppProjectId(appVO.getProjectId());
         if (appVO.getAppId() == null) {
             appMapper.insertSelective(appVO);
         } else {

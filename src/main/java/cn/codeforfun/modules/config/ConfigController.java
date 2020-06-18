@@ -11,7 +11,6 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -40,18 +39,17 @@ public class ConfigController {
     @PostMapping
     @Transactional(rollbackFor = Exception.class)
     public void save(@RequestBody @Valid ConfigVO configVO) {
+        configVO.setConfigEnvId(configVO.getEnvId());
         if (configVO.getConfigId() == null) {
             configMapper.insertSelective(configVO);
         } else {
             configMapper.updateByPrimaryKeySelective(configVO);
         }
 
-        Example example = new Example(Property.class);
-        example.createCriteria().andEqualTo("configId", configVO.getConfigId());
-        propertyMapper.deleteByExample(example);
+        propertyMapper.select(new Property(null, null, null, null, configVO.getConfigId()));
 
         configVO.getPropertyList().forEach(p -> {
-            p.setConfigId(configVO.getConfigId());
+            p.setPropertyConfigId(configVO.getConfigId());
             propertyMapper.insertSelective(p);
         });
     }

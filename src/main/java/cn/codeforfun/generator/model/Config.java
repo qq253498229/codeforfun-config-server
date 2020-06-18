@@ -32,6 +32,6 @@ public class Config {
     /**
      * 环境id(外键)
      */
-    @Column(name = "env_id")
-    private Long envId;
+    @Column(name = "config_env_id")
+    private Long configEnvId;
 }

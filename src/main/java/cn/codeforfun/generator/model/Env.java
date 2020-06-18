@@ -1,11 +1,11 @@
 package cn.codeforfun.generator.model;
 
-import javax.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * 表名：system_env
@@ -38,6 +38,6 @@ public class Env {
     /**
      * 项目id(外键)
      */
-    @Column(name = "project_id")
-    private Long projectId;
+    @Column(name = "env_project_id")
+    private Long envProjectId;
 }

@@ -1,11 +1,11 @@
 package cn.codeforfun.generator.model;
 
-import javax.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * 表名：system_property
@@ -44,6 +44,6 @@ public class Property {
     /**
      * 配置id(外键)
      */
-    @Column(name = "config_id")
-    private Long configId;
+    @Column(name = "property_config_id")
+    private Long propertyConfigId;
 }

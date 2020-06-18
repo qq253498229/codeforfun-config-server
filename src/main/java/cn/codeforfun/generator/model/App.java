@@ -1,11 +1,11 @@
 package cn.codeforfun.generator.model;
 
-import lombok.*;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * 表名：system_app
@@ -38,6 +38,6 @@ public class App {
     /**
      * 项目id(外键)
      */
-    @Column(name = "project_id")
-    private Long projectId;
+    @Column(name = "app_project_id")
+    private Long appProjectId;
 }

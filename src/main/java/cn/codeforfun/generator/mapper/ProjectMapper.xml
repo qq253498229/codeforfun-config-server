@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.codeforfun.generator.mapper.ProjectMapper">
-    <resultMap id="BaseResultMap" type="cn.codeforfun.generator.model.Project">
-        <!--
-          WARNING - @mbg.generated
-        -->
-        <id column="project_id" jdbcType="BIGINT" property="projectId"/>
-        <result column="project_name" jdbcType="VARCHAR" property="projectName"/>
-        <result column="project_code" jdbcType="VARCHAR" property="projectCode"/>
-    </resultMap>
+  <resultMap id="BaseResultMap" type="cn.codeforfun.generator.model.Project">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="project_code" jdbcType="VARCHAR" property="projectCode" />
+  </resultMap>
     <delete id="deleteAppConfigRelationshipByProjectId">
         delete
         from relationship_app_config
-        where app_id in (
-            select app_id
+        where relationship_app_id in (
+            select relationship_app_id
             from system_app
-            where project_id = #{0}
+            where app_project_id = #{0}
         )
     </delete>
     <delete id="deletePropertyByProjectId">
         delete
         from system_property
-        where config_id in (
+        where property_config_id in (
             select system_config.config_id
             from system_config
-            where env_id in (
-                select env_id
+            where config_env_id in (
+                select config_env_id
                 from system_env
-                where project_id = #{0}
+                where env_project_id = #{0}
             ))
     </delete>
     <delete id="deleteConfigByProjectId">
         delete
         from system_config
-        where env_id in (
-            select env_id
+        where config_env_id in (
+            select config_env_id
             from system_env
-            where project_id = #{0}
+            where env_project_id = #{0}
         )
     </delete>
 </mapper>

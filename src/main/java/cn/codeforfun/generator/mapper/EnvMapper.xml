@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.codeforfun.generator.mapper.EnvMapper">
-    <resultMap id="BaseResultMap" type="cn.codeforfun.generator.model.Env">
-        <!--
-          WARNING - @mbg.generated
-        -->
-        <id column="env_id" jdbcType="BIGINT" property="envId"/>
-        <result column="env_name" jdbcType="VARCHAR" property="envName"/>
-        <result column="env_code" jdbcType="VARCHAR" property="envCode"/>
-        <result column="project_id" jdbcType="BIGINT" property="projectId"/>
-    </resultMap>
-    <resultMap id="envMap" type="cn.codeforfun.modules.env.vo.EnvVO" extends="BaseResultMap">
-        <collection property="configList" resultMap="cn.codeforfun.generator.mapper.ConfigMapper.BaseResultMap"/>
+  <resultMap id="BaseResultMap" type="cn.codeforfun.generator.model.Env">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="env_id" jdbcType="BIGINT" property="envId" />
+    <result column="env_name" jdbcType="VARCHAR" property="envName" />
+    <result column="env_code" jdbcType="VARCHAR" property="envCode" />
+    <result column="env_project_id" jdbcType="BIGINT" property="envProjectId" />
+  </resultMap>
+    <resultMap extends="BaseResultMap" id="envMap" type="cn.codeforfun.modules.env.vo.EnvVO">
+        <collection property="configList" resultMap="cn.codeforfun.generator.mapper.ConfigMapper.BaseResultMap" />
     </resultMap>
     <select id="findEnvList" resultMap="envMap">
         select se.env_id,
                env_name,
                env_code,
-               project_id,
+               env_project_id,
                sc.config_id,
                config_name
         from system_env se
-                 left join system_config sc on se.env_id = sc.env_id
-        where se.project_id = #{0}
+                 left join system_config sc on se.env_id = sc.config_env_id
+        where se.env_project_id = #{0}
     </select>
 </mapper>

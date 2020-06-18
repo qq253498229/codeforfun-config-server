@@ -26,7 +26,6 @@ public class ConfigVO extends Config {
     /**
      * 环境id(外键)
      */
-    @Column(name = "env_id")
     @NotNull(message = ERROR_MESSAGE_ENV_ID_NULL)
     private Long envId;
 
