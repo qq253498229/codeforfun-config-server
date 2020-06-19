@@ -7,6 +7,7 @@ import cn.codeforfun.utils.PageUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +37,7 @@ public class AppController {
     }
 
     @PostMapping
+    @Transactional(rollbackFor = Exception.class)
     public void save(@RequestBody @Valid AppVO appVO) {
         appVO.setAppProjectId(appVO.getProjectId());
         if (appVO.getAppId() == null) {

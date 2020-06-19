@@ -11,6 +11,7 @@ import cn.codeforfun.utils.PageUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -53,6 +54,7 @@ public class ProjectController {
     }
 
     @DeleteMapping("/{id}")
+    @Transactional(rollbackFor = Exception.class)
     public void delete(@PathVariable Long id) {
         projectMapper.deleteAppConfigRelationshipByProjectId(id);
         projectMapper.deletePropertyByProjectId(id);

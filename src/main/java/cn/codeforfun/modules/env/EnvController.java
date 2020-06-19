@@ -60,7 +60,7 @@ public class EnvController {
     }
 
     @DeleteMapping("/{id}")
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void delete(@PathVariable Long id) {
         configMapper.deleteAppConfigRelationshipByEnvId(id);
         configMapper.deletePropertyByEnvId(id);

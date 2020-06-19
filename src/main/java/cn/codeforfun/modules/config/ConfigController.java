@@ -60,6 +60,7 @@ public class ConfigController {
     }
 
     @DeleteMapping("/{id}")
+    @Transactional(rollbackFor = Exception.class)
     public void delete(@PathVariable Long id) {
         configMapper.deleteAppConfigRelationshipByConfigId(id);
         propertyMapper.delete(new Property(null, null, null, null, id));
