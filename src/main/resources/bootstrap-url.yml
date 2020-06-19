@@ -19,3 +19,7 @@ spring:
       - org.springframework.cloud.netflix.eureka.EurekaDiscoveryClientConfiguration
       - org.springframework.cloud.netflix.eureka.reactive.EurekaReactiveDiscoveryClientConfiguration
       - org.springframework.cloud.netflix.eureka.loadbalancer.LoadBalancerEurekaAutoConfiguration
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
