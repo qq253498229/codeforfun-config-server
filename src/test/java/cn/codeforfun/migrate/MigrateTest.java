@@ -7,6 +7,7 @@ import cn.codeforfun.migrate.core.utils.DbUtil;
 import cn.codeforfun.migrate.core.utils.FileUtil;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.springframework.util.CollectionUtils;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -31,6 +32,12 @@ public class MigrateTest {
         DatabaseInfo info = new DatabaseInfo("localhost", 3306, "root", "root", "application_configuration");
         Connection connection = DbUtil.getConnection(info.getUrl(), info.getUsername(), info.getPassword());
         List<String> duplicatedFieldList = DbUtil.getBeanList(connection, SQL, String.class, info.getName());
-        System.out.println(duplicatedFieldList);
+        if (!CollectionUtils.isEmpty(duplicatedFieldList)) {
+            System.out.println("存在重复的字段");
+            duplicatedFieldList.forEach(System.out::println);
+        } else {
+            System.out.println("没有重复的字段");
+        }
+
     }
 }
