@@ -13,6 +13,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author wangbin
+ */
 @Configuration
 @EnableConfigServer
 public class ConfigServerConfiguration implements EnvironmentRepository {
@@ -22,7 +25,9 @@ public class ConfigServerConfiguration implements EnvironmentRepository {
     @Override
     public Environment findOne(String application, String profile, String label) {
         Environment environment = new Environment(application, profile, label, null, null);
-        if (!application.contains("_") || "app".equals(application)) {
+        String ignore1 = "_";
+        String ignore2 = "app";
+        if (!application.contains(ignore1) || ignore2.equals(application)) {
             return environment;
         }
 

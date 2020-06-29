@@ -13,6 +13,9 @@ import java.util.List;
 
 import static cn.codeforfun.constant.ValidationConstant.*;
 
+/**
+ * @author wangbin
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class AppVO extends App {

@@ -4,6 +4,9 @@ import com.github.pagehelper.IPage;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+/**
+ * @author wangbin
+ */
 public class PageUtils {
     public static Object from(Pageable pageable) {
         return new IPage() {

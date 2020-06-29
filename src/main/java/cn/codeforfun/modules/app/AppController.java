@@ -1,6 +1,6 @@
 package cn.codeforfun.modules.app;
 
-import cn.codeforfun.generator.mapper.AppMapper;
+import cn.codeforfun.base.BaseController;
 import cn.codeforfun.generator.model.Config;
 import cn.codeforfun.modules.app.vo.AppVO;
 import cn.codeforfun.utils.PageUtils;
@@ -9,9 +9,9 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -25,9 +25,8 @@ import static cn.codeforfun.constant.ValidationConstant.ERROR_MESSAGE_PROJECT_ID
  */
 @RestController
 @RequestMapping(CONTEXT_PATH + "/app")
-public class AppController {
-    @Resource
-    private AppMapper appMapper;
+@Validated
+public class AppController extends BaseController {
 
     @GetMapping
     public PageInfo<AppVO> list(Pageable pageable, @NotNull(message = ERROR_MESSAGE_PROJECT_ID_NULL) Long projectId) {

@@ -11,6 +11,9 @@ import javax.validation.constraints.Pattern;
 import static cn.codeforfun.constant.ValidationConstant.ERROR_MESSAGE_CODE;
 import static cn.codeforfun.constant.ValidationConstant.REGEX_CODE;
 
+/**
+ * @author wangbin
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class ProjectVO extends Project {

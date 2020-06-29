@@ -1,7 +1,6 @@
 package cn.codeforfun.modules.env;
 
-import cn.codeforfun.generator.mapper.ConfigMapper;
-import cn.codeforfun.generator.mapper.EnvMapper;
+import cn.codeforfun.base.BaseController;
 import cn.codeforfun.generator.model.Config;
 import cn.codeforfun.generator.model.Env;
 import cn.codeforfun.modules.env.vo.EnvVO;
@@ -13,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -27,11 +25,7 @@ import static cn.codeforfun.constant.ValidationConstant.ERROR_MESSAGE_PROJECT_ID
 @RestController
 @RequestMapping(CONTEXT_PATH + "/env")
 @Validated
-public class EnvController {
-    @Resource
-    private EnvMapper envMapper;
-    @Resource
-    private ConfigMapper configMapper;
+public class EnvController extends BaseController {
 
     @GetMapping
     public PageInfo<Env> list(Pageable pageable, @NotNull(message = ERROR_MESSAGE_PROJECT_ID_NULL) Long projectId) {

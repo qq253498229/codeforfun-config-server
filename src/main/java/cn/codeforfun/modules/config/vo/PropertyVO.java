@@ -7,6 +7,9 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 
+/**
+ * @author wangbin
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class PropertyVO extends Property {

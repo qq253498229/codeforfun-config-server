@@ -14,6 +14,9 @@ import java.util.List;
 
 import static cn.codeforfun.constant.ValidationConstant.ERROR_MESSAGE_ENV_ID_NULL;
 
+/**
+ * @author wangbin
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class ConfigVO extends Config {

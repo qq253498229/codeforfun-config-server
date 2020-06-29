@@ -1,7 +1,6 @@
 package cn.codeforfun.modules.config;
 
-import cn.codeforfun.generator.mapper.ConfigMapper;
-import cn.codeforfun.generator.mapper.PropertyMapper;
+import cn.codeforfun.base.BaseController;
 import cn.codeforfun.generator.model.Config;
 import cn.codeforfun.generator.model.Property;
 import cn.codeforfun.modules.config.vo.ConfigVO;
@@ -10,9 +9,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -24,11 +23,8 @@ import static cn.codeforfun.constant.ValidationConstant.ERROR_MESSAGE_ENV_ID_NUL
  */
 @RestController
 @RequestMapping(CONTEXT_PATH + "/conf")
-public class ConfigController {
-    @Resource
-    private ConfigMapper configMapper;
-    @Resource
-    private PropertyMapper propertyMapper;
+@Validated
+public class ConfigController extends BaseController {
 
     @GetMapping
     public PageInfo<Config> list(Pageable pageable, @NotNull(message = ERROR_MESSAGE_ENV_ID_NULL) Long envId) {
