@@ -14,11 +14,16 @@ MYSQL_DATABASE | application_configuration | 数据库名
 MYSQL_USERNAME | root | 数据库登录名
 MYSQL_PASSWORD | root | 数据库登录密码
 APPLICATION_NAME | config-server | SpringBoot中的 spring.application.name
-DISCOVERY_TYPE | url | 注册中心类型，url/eureka/consul，其中url为不使用注册中心
-CONSUL_TOKEN | B595BC8E-DE44-4510-82D7-ECF5657F4D4D | 当 DISCOVERY_TYPE 为 consul 时生效，consul的 acl_token
-CONSUL_HOST | 8500 | 当 DISCOVERY_TYPE 为 consul 时生效，consul的地址
-CONSUL_PORT | 8500 | 当 DISCOVERY_TYPE 为 consul 时生效，consul的端口号
-EUREKA_SERVICE_URL | http://admin:admin@localhost:8761/eureka/ | 当 DISCOVERY_TYPE 为 eureka 时生效，eureka 的注册地址
+DISCOVERY_TYPE | url | 注册中心类型，url/eureka/consul，其中 url 表示不使用注册中心
+CONSUL_TOKEN | B595BC8E-DE44-4510-82D7-ECF5657F4D4D | 当 DISCOVERY_TYPE 为 consul 时生效，表示 consul的 acl_token
+CONSUL_HOST | 8500 | 当 DISCOVERY_TYPE 为 consul 时生效，表示 consul的地址
+CONSUL_PORT | 8500 | 当 DISCOVERY_TYPE 为 consul 时生效，表示 consul的端口号
+EUREKA_SERVICE_URL | http://admin:admin@localhost:8761/eureka/ | 当 DISCOVERY_TYPE 为 eureka 时生效，表示 eureka 的注册地址
+MONITOR_TYPE | none | 通知推送类型，none/rabbitmq，其中 none 表示不使用通知推送功能
+RABBITMQ_HOST| localhost | 当 MONITOR_TYPE 为 rabbitmq 时生效，表示 rabbitmq 的地址
+RABBITMQ_PORT| 5672 | 当 MONITOR_TYPE 为 rabbitmq 时生效，表示 rabbitmq 的端口号
+RABBITMQ_USERNAME| admin | 当 MONITOR_TYPE 为 rabbitmq 时生效，表示 rabbitmq 的用户名
+RABBITMQ_PASSWORD| admin | 当 MONITOR_TYPE 为 rabbitmq 时生效，表示 rabbitmq 的密码
 
 `start command`
 ```bash
@@ -47,13 +52,7 @@ services:
     image: registry.cn-beijing.aliyuncs.com/codeforfun/config-server:1.0.4
     container_name: config-server
     environment:
-      SERVER_PORT: 8888
       MYSQL_HOST: mysql
-      MYSQL_PORT: 3306
-      MYSQL_DATABASE: application_configuration
-      MYSQL_USERNAME: root
-      MYSQL_PASSWORD: root
-      DISCOVERY_TYPE: url
     ports:
       - "8888:8888"
   mysql:
