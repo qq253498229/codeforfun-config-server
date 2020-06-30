@@ -39,13 +39,38 @@
         left join system_env se on sc.config_env_id = se.env_id
         <where>
             <choose>
-                <when test="projectId">
+                <when test="projectId != null and projectId != ''">
                     and sa.app_project_id = #{projectId}
                 </when>
-                <when test="appId">
+                <when test="appId != null and appId != ''">
                     and sa.app_id = #{appId}
                 </when>
             </choose>
+        </where>
+    </select>
+    <select id="findAppCodeListByEnvIdsOrConfigIdsOrAppIds" resultType="java.lang.String">
+        select distinct concat(sp.project_code, '_', sa.app_code)
+        from system_app sa
+        left join relationship_app_config rac on sa.app_id = rac.relationship_app_id
+        left join system_config sc on rac.relationship_config_id = sc.config_id
+        left join system_env se on sc.config_env_id = se.env_id
+        left join system_project sp on sa.app_project_id = sp.project_id
+        <where>
+            <if test="appIdList != null and appIdList.size() > 0">
+                or sa.app_id in (
+                <foreach collection="appIdList" item="appId" separator=",">#{appId}</foreach>
+                )
+            </if>
+            <if test="envIdList != null and envIdList.size() > 0">
+                or se.env_id in (
+                <foreach collection="envIdList" item="envId" separator=",">#{envId}</foreach>
+                )
+            </if>
+            <if test="configIdList != null and configIdList.size() > 0">
+                or sc.config_id in (
+                <foreach collection="configIdList" item="configId" separator=",">#{configId}</foreach>
+                )
+            </if>
         </where>
     </select>
 </mapper>

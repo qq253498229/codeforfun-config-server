@@ -13,4 +13,6 @@ public interface AppMapper extends Mapper<App> {
     void deleteAppConfigRelationshipByAppId(Long appId);
 
     void insertAppConfigRelationshipByAppId(@Param("appId") Long appId, @Param("configIdList") List<Long> configIdList);
+
+    List<String> findAppCodeListByEnvIdsOrConfigIdsOrAppIds(@Param("envIdList") List<Integer> envIdList, @Param("configIdList") List<Integer> configIdList, @Param("appIdList") List<Integer> appIdList);
 }

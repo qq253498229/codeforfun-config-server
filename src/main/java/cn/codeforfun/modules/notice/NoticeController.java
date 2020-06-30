@@ -1,12 +1,10 @@
 package cn.codeforfun.modules.notice;
 
 import cn.codeforfun.base.BaseController;
-import cn.codeforfun.utils.JsonUtils;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import cn.codeforfun.modules.notice.exception.NoticeNotSupportException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.config.monitor.PropertyPathEndpoint;
 import org.springframework.http.HttpHeaders;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -20,15 +18,11 @@ import static cn.codeforfun.constant.BusinessConstant.CONTEXT_PATH;
  */
 @RestController
 @RequestMapping(CONTEXT_PATH + "/notice")
-@Validated
 public class NoticeController extends BaseController {
-    @Autowired(required = false)
-    private PropertyPathEndpoint propertyPathEndpoint;
+    private final PropertyPathEndpoint propertyPathEndpoint;
 
-    @PostMapping("/refresh")
-    public void refresh(@RequestHeader HttpHeaders headers, @RequestBody Map<String, Object> request) {
-//        propertyPathEndpoint.notifyByPath(headers, request);
-        System.out.println(1);
+    public NoticeController(@Autowired(required = false) PropertyPathEndpoint propertyPathEndpoint) {
+        this.propertyPathEndpoint = propertyPathEndpoint;
     }
 
     @GetMapping("/loadAll")
@@ -41,13 +35,15 @@ public class NoticeController extends BaseController {
     }
 
     @PostMapping
-    public void test(@RequestBody Map<String, List<Map<String, Integer>>> param) throws JsonProcessingException {
-        System.out.println(JsonUtils.toPrettyJson(param));
-        List<Map<String, Integer>> envIdList = param.get("env");
-        List<Map<String, Integer>> configIdList = param.get("config");
-        List<Map<String, Integer>> appIdList = param.get("app");
-        System.out.println(1);
-
+    public void notice(@RequestBody Map<String, List<Integer>> param) {
+        if (propertyPathEndpoint == null) {
+            throw new NoticeNotSupportException();
+        }
+        List<Integer> envIdList = param.get("env");
+        List<Integer> configIdList = param.get("config");
+        List<Integer> appIdList = param.get("app");
+        List<String> appCodeList = appMapper.findAppCodeListByEnvIdsOrConfigIdsOrAppIds(envIdList, configIdList, appIdList);
+        propertyPathEndpoint.notifyByForm(new HttpHeaders(), appCodeList);
     }
 
 }
