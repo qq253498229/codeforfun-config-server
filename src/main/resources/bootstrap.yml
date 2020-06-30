@@ -2,4 +2,4 @@ spring:
   application:
     name: ${APPLICATION_NAME:config-server}
   profiles:
-    active: default,${DISCOVERY_TYPE:url}
+    active: default,${DISCOVERY_TYPE:url},${MONITOR_TYPE:none}

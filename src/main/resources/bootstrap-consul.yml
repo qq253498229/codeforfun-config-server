@@ -1,15 +1,4 @@
 spring:
-  autoconfigure:
-    exclude:
-      #      忽略eureka自动配置
-      - org.springframework.cloud.netflix.eureka.config.EurekaClientConfigServerAutoConfiguration
-      - org.springframework.cloud.netflix.eureka.config.DiscoveryClientOptionalArgsConfiguration
-      - org.springframework.cloud.netflix.eureka.EurekaClientAutoConfiguration
-      - org.springframework.cloud.netflix.ribbon.eureka.RibbonEurekaAutoConfiguration
-      - org.springframework.cloud.netflix.eureka.EurekaDiscoveryClientConfiguration
-      - org.springframework.cloud.netflix.eureka.reactive.EurekaReactiveDiscoveryClientConfiguration
-      - org.springframework.cloud.netflix.eureka.loadbalancer.LoadBalancerEurekaAutoConfiguration
-
   cloud:
     consul:
       discovery:

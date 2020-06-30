@@ -18,6 +18,11 @@ services:
 #      CONSUL_TOKEN: B595BC8E-DE44-4510-82D7-ECF5657F4D4D
 #      CONSUL_HOST: consul
 #      CONSUL_PORT: 8500
+#      MONITOR_TYPE: rabbitmq
+#      RABBITMQ_HOST: rabbit
+#      RABBITMQ_PORT: 5672
+#      RABBITMQ_USERNAME: admin
+#      RABBITMQ_PASSWORD: admin
     ports:
       - "8888:8888"
 networks:
