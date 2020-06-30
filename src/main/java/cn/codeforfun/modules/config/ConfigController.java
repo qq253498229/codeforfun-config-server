@@ -42,7 +42,7 @@ public class ConfigController extends BaseController {
             configMapper.updateByPrimaryKeySelective(configVO);
         }
 
-        propertyMapper.select(new Property(null, null, null, null, configVO.getConfigId()));
+        propertyMapper.deleteByConfigId(configVO.getConfigId());
 
         configVO.getPropertyList().forEach(p -> {
             p.setPropertyConfigId(configVO.getConfigId());
