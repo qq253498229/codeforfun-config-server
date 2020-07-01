@@ -43,7 +43,9 @@ public class NoticeController extends BaseController {
         List<Integer> configIdList = param.get("config");
         List<Integer> appIdList = param.get("app");
         List<String> appCodeList = appMapper.findAppCodeListByEnvIdsOrConfigIdsOrAppIds(envIdList, configIdList, appIdList);
-        propertyPathEndpoint.notifyByForm(new HttpHeaders(), appCodeList);
+        Map<String, Object> map = new HashMap<>(1);
+        map.put("path", appCodeList);
+        propertyPathEndpoint.notifyByPath(new HttpHeaders(), map);
     }
 
 }
