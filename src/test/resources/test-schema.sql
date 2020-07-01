@@ -42,7 +42,7 @@ CREATE TABLE `system_property`
 (
     `property_id`        bigint       NOT NULL auto_increment,
     `property_key`       varchar(200) NOT NULL COMMENT '属性名',
-    `property_value`     varchar(200) DEFAULT NULL COMMENT '属性值',
+    `property_value`     varchar(2000) DEFAULT NULL COMMENT '属性值',
     `property_type`      varchar(50)  DEFAULT NULL COMMENT 'STRING,INTEGER,BOOLEAN',
     `property_config_id` bigint       NOT NULL COMMENT '配置id(外键)',
     PRIMARY KEY (`property_id`),
