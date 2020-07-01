@@ -25,7 +25,6 @@ RABBITMQ_PORT| 5672 | 当 MONITOR_TYPE 为 rabbitmq 时生效，表示 rabbitmq 
 RABBITMQ_USERNAME| admin | 当 MONITOR_TYPE 为 rabbitmq 时生效，表示 rabbitmq 的用户名
 RABBITMQ_PASSWORD| admin | 当 MONITOR_TYPE 为 rabbitmq 时生效，表示 rabbitmq 的密码
 RABBITMQ_EXCHANGE_NAME| config-server-exchange | 当 MONITOR_TYPE 为 rabbitmq 时生效，表示 rabbitmq 的交换机名称
-RABBITMQ_QUEUE_NAME| config-server-queue | 当 MONITOR_TYPE 为 rabbitmq 时生效，表示 rabbitmq 的队列名称。最终队列名为：`${RABBITMQ_EXCHANGE_NAME}.${RABBITMQ_QUEUE_NAME}`
 
 `start command`
 ```bash
