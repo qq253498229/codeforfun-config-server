@@ -13,7 +13,8 @@ MYSQL_PORT | 3306 | 数据库端口号
 MYSQL_DATABASE | application_configuration | 数据库名
 MYSQL_USERNAME | root | 数据库登录名
 MYSQL_PASSWORD | root | 数据库登录密码
-APPLICATION_NAME | config-server | SpringBoot中的 spring.application.name
+APPLICATION_NAME | config-server | SpringBoot中的 `spring.application.name`
+LOG_LEVEL | info | SpringBoot中的 `logging.level`，设置为 `debug` 会显示SQL详情
 DISCOVERY_TYPE | url | 注册中心类型，url/eureka/consul，其中 url 表示不使用注册中心
 CONSUL_TOKEN | B595BC8E-DE44-4510-82D7-ECF5657F4D4D | 当 DISCOVERY_TYPE 为 consul 时生效，表示 consul的 acl_token
 CONSUL_HOST | 8500 | 当 DISCOVERY_TYPE 为 consul 时生效，表示 consul的地址
