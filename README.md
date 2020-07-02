@@ -32,7 +32,7 @@ docker run -d -p 8888:8888 --name config-server \
 -e SERVER_PORT=8888 \
 -e MYSQL_HOST=host.docker.internal -e MYSQL_PORT=3306 -e MYSQL_DATABASE=application_configuration \
 -e MYSQL_USERNAME=root -e MYSQL_PASSWORD=root -e DISCOVERY_TYPE=url \
-registry.cn-beijing.aliyuncs.com/codeforfun/config-server:1.0.4
+registry.cn-beijing.aliyuncs.com/codeforfun/config-server:1.0.5
 ```
 
 `stop command`
@@ -50,7 +50,7 @@ docker logs -f config-server
 version: "3"
 services:
   config-server:
-    image: registry.cn-beijing.aliyuncs.com/codeforfun/config-server:1.0.4
+    image: registry.cn-beijing.aliyuncs.com/codeforfun/config-server:1.0.5
     container_name: config-server
     environment:
       MYSQL_HOST: mysql
