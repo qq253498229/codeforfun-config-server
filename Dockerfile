@@ -1,9 +1,9 @@
 FROM maven:3-jdk-8-alpine
 WORKDIR /app
 COPY pom.xml ./pom.xml
-RUN mvn package -Dmaven.test.skip=true -Palibaba-maven-repository
+RUN mvn package -Dmaven.test.skip=true -Plocal-maven-repository -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
 COPY src ./src
-RUN mvn package -Dmaven.test.skip=true -Palibaba-maven-repository
+RUN mvn package -Dmaven.test.skip=true -Plocal-maven-repository -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
 
 FROM openjdk:8-jre-alpine
 WORKDIR /app
