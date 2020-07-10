@@ -11,13 +11,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static cn.codeforfun.constant.BusinessConstant.CONTEXT_PATH;
-
 /**
  * @author wangbin
  */
 @RestController
-@RequestMapping(CONTEXT_PATH + "/notice")
+@RequestMapping("/notice")
 public class NoticeController extends BaseController {
     private final PropertyPathEndpoint propertyPathEndpoint;
 

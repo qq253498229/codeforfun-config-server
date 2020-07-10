@@ -8,7 +8,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import javax.annotation.Resource;
 
-import static cn.codeforfun.constant.BusinessConstant.CONTEXT_PATH;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -22,7 +21,7 @@ class ProjectControllerTest {
     @Test
     void list() throws Exception {
         mockMvc.perform(
-                get(CONTEXT_PATH + "/project")
+                get("/project")
         )
                 .andExpect(status().isOk())
 //                .andDo(print())

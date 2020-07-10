@@ -15,13 +15,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static cn.codeforfun.constant.BusinessConstant.CONTEXT_PATH;
-
 /**
  * @author wangbin
  */
 @RestController
-@RequestMapping(CONTEXT_PATH + "/project")
+@RequestMapping("/project")
 @Validated
 public class ProjectController extends BaseController {
 

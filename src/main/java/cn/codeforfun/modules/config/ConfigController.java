@@ -15,14 +15,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import static cn.codeforfun.constant.BusinessConstant.CONTEXT_PATH;
 import static cn.codeforfun.constant.ValidationConstant.ERROR_MESSAGE_ENV_ID_NULL;
 
 /**
  * @author wangbin
  */
 @RestController
-@RequestMapping(CONTEXT_PATH + "/conf")
+@RequestMapping("/conf")
 @Validated
 public class ConfigController extends BaseController {
 
